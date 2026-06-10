@@ -5,8 +5,12 @@ on:
     branches:
       - main
 
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: clouddeployx
+
 jobs:
-  build:
+  build-and-push:
 
     runs-on: ubuntu-latest
 
@@ -15,19 +19,36 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          python-version: "3.12"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Login To Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Validate Application Import
-        run: |
-          python -c "from app.main import app; print('Application Loaded Successfully')"
+      - name: Set Image Tag
+        id: vars
+        run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
-          docker build -t clouddeployx:ci .
+          docker build -t $ECR_REPOSITORY:latest .
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+
+      - name: Tag Image For ECR
+        run: |
+          docker tag $ECR_REPOSITORY:latest \
+          265411104260.dkr.ecr.ap-south-1.amazonaws.com/clouddeployx:latest
+
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG \
+          265411104260.dkr.ecr.ap-south-1.amazonaws.com/clouddeployx:$IMAGE_TAG
+
+      - name: Push Image To ECR
+        run: |
+          docker push 265411104260.dkr.ecr.ap-south-1.amazonaws.com/clouddeployx:latest
+
+          docker push 265411104260.dkr.ecr.ap-south-1.amazonaws.com/clouddeployx:$IMAGE_TAG
