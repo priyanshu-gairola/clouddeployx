@@ -3,6 +3,5 @@ provider "aws" {
   profile = "clouddeployx"
 }
 
-resource "aws_ecr_repository" "clouddeployx_tf" {
-  name = "clouddeployx-tf"
-}
+
+
