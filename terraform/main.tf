@@ -22,3 +22,16 @@ resource "aws_security_group" "clouddeployx_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_instance" "clouddeployx_ec2" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+
+  vpc_security_group_ids = [
+    aws_security_group.clouddeployx_sg.id
+  ]
+
+  tags = {
+    Name = "clouddeployx-terraform-ec2"
+  }
+}
