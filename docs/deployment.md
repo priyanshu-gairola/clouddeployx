@@ -1,26 +1,43 @@
 # Deployment Architecture
 
-## Current Flow
+## Current State
 
 GitHub
-    ↓
+↓
 GitHub Actions
-    ↓
+↓
 Amazon ECR
-    ↓
+
+Infrastructure Provisioned By Terraform:
+
+* Amazon ECR Repository
+* Security Group
+* EC2 Instance
+* IAM Role
+* IAM Policy Attachment
+* IAM Instance Profile
+
+## Authentication Design
+
 EC2
-    ↓
-Docker Container
+↓
+IAM Instance Profile
+↓
+IAM Role
+↓
+AmazonEC2ContainerRegistryReadOnly
 
-## Deployment Strategy
-
-- Docker image stored in ECR
-- EC2 authenticates using IAM Role
-- EC2 pulls image from ECR
-- Container runs automatically using User Data
+This allows EC2 to securely access ECR without storing AWS credentials on the server.
 
 ## Security
 
-- IAM Role used instead of access keys
-- Principle of least privilege
-- ECR ReadOnly permissions
+* IAM Roles instead of Access Keys
+* Principle of Least Privilege
+* Security Group Based Access Control
+* Temporary AWS Credentials
+
+## Next Step
+
+* Docker Bootstrap via User Data
+* Automatic Image Pull
+* Container Startup Automation

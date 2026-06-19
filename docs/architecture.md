@@ -3,26 +3,65 @@
 ## Current Architecture
 
 Developer
-    |
-    v
+↓
 GitHub Repository
-    |
-    v
-Docker Image
-    |
-    v
-Containerized Application
+↓
+GitHub Actions CI/CD
+↓
+Amazon ECR
+↓
+EC2 Instance
+↓
+Docker Container
 
-## Planned Evolution
+Infrastructure Provisioning Layer:
 
-Phase 0:
-GitHub -> Docker -> AWS EC2
+Terraform
+↓
+Amazon ECR
+Security Group
+EC2 Instance
+IAM Role
+IAM Instance Profile
 
-Phase 1:
-Terraform manages infrastructure
+Authentication Flow:
 
-Phase 2:
-Kubernetes deployment platform
+EC2
+↓
+IAM Instance Profile
+↓
+IAM Role
+↓
+Amazon ECR ReadOnly Access
 
-Phase 3:
-Monitoring and Observability
+Monitoring:
+
+CloudWatch
+↓
+SNS Notifications
+
+## Future Evolution
+
+Phase 1 (Completed)
+
+* Terraform Infrastructure Provisioning
+* IAM Role Based Authentication
+* ECR Integration
+
+Phase 2
+
+* Application Deployment Automation
+* User Data Bootstrap
+* Infrastructure Improvements
+
+Phase 3
+
+* Kubernetes Migration
+* High Availability Architecture
+* Container Orchestration
+
+Phase 4
+
+* Observability Enhancements
+* Production Monitoring
+* Advanced Scaling

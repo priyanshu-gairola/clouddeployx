@@ -1,8 +1,48 @@
+# Python
 venv/
 .venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Environment Files
 .env
+.env.*
+
+# Terraform
 .terraform/
 *.tfstate
-*.tfstate.backup
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Terraform Variables
+*.tfvars
+*.tfvars.json
+
+# Terraform Override Files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Python Testing
+.pytest_cache/
+.coverage
+
+# Temporary Files
+*.tmp
+*.bak

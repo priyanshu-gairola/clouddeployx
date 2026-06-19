@@ -3,21 +3,32 @@
 ## Current Flow
 
 Developer Push
-    ↓
+↓
 GitHub Actions
-    ↓
+↓
 Docker Build
-    ↓
+↓
+Docker Image Tagging
+↓
 Amazon ECR
 
 ## Image Tagging Strategy
 
-- latest
-- git commit SHA
+* latest
+* Git Commit SHA
 
 ## Benefits
 
-- Automated validation
-- Automated image creation
-- Centralized artifact storage
-- Rollback capability
+* Automated Build Process
+* Immutable Image Versions
+* Centralized Artifact Storage
+* Rollback Capability
+* Repeatable Deployments
+
+## Future Enhancement
+
+Amazon ECR
+↓
+EC2 / Kubernetes
+↓
+Automated Deployment

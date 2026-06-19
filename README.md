@@ -1,12 +1,28 @@
 # CloudDeployX
 
-Production-Grade AWS DevOps Platform
+Production-Style AWS DevOps Project with CI/CD, Infrastructure as Code, Containerization, and Cloud-Native Architecture.
+
+---
 
 ## Overview
 
-CloudDeployX is a production-style DevOps project demonstrating modern cloud deployment practices using AWS, Docker, GitHub Actions, Infrastructure Automation, Monitoring, and Kubernetes.
+CloudDeployX is a hands-on DevOps and Cloud Engineering project built to demonstrate modern deployment practices using AWS, Docker, GitHub Actions, and Terraform.
 
-The project focuses on infrastructure engineering, CI/CD, observability, scalability, and deployment automation rather than application complexity.
+The project focuses on infrastructure automation, deployment pipelines, security, scalability, and cloud engineering concepts rather than application complexity.
+
+The objective is to simulate how applications are built, packaged, stored, deployed, and managed in real-world production environments.
+
+---
+
+## Project Goals
+
+* Build and manage cloud infrastructure using Terraform
+* Automate container image creation using GitHub Actions
+* Store application artifacts in Amazon ECR
+* Implement secure AWS authentication using IAM Roles
+* Follow Infrastructure as Code (IaC) principles
+* Prepare for Kubernetes-based deployments
+* Demonstrate DevOps best practices for interviews and portfolio projects
 
 ---
 
@@ -18,65 +34,83 @@ GitHub Repository
 ↓
 GitHub Actions CI/CD
 ↓
+Docker Build
+↓
 Amazon ECR
 ↓
-Application Load Balancer (ALB)
+EC2 Infrastructure
 ↓
-Target Group
+Container Deployment
+
+Infrastructure Provisioning Layer:
+
+Terraform
 ↓
-Auto Scaling Group (ASG)
+Amazon ECR
+Security Group
+EC2 Instance
+IAM Role
+IAM Policy Attachment
+IAM Instance Profile
+
+Authentication Flow:
+
+EC2
 ↓
-EC2 Instances
+IAM Instance Profile
 ↓
-Docker Containers
+IAM Role
+↓
+Amazon ECR ReadOnly Access
 
 Monitoring:
 
 CloudWatch
 ↓
-SNS Email Notifications
+SNS Notifications
 
 ---
 
 ## Features
 
-### CI/CD
+### Infrastructure as Code (Terraform)
 
-* GitHub Actions workflow
-* Automated Docker image build
-* Git commit SHA image tagging
-* Automatic image publishing to Amazon ECR
+Implemented using Terraform:
 
-### Containerization
+* AWS ECR Repository
+* Security Group
+* EC2 Instance
+* IAM Role
+* IAM Policy Attachment
+* IAM Instance Profile
+* Variables
+* Outputs
+* Data Sources
 
-* Dockerized FastAPI application
-* Versioned image strategy
-* Automated deployment bootstrap
+Terraform Concepts Practiced:
 
-### AWS Infrastructure
-
-* Amazon ECR
-* EC2
-* IAM Roles
-* Application Load Balancer
-* Target Groups
-* Auto Scaling Group
-
-### Monitoring & Alerting
-
-* CloudWatch Metrics
-* CloudWatch Alarms
-* SNS Notifications
-
-### Security
-
-* IAM Roles instead of static credentials
-* Least privilege access model
-* Security Group based network controls
+* terraform init
+* terraform validate
+* terraform plan
+* terraform apply
+* Terraform State
+* Variables
+* Outputs
+* References
+* Data Sources
+* IAM Integration
 
 ---
 
-## Deployment Flow
+### CI/CD Pipeline
+
+* GitHub Actions Workflow
+* Automated Docker Image Build
+* Image Versioning using Git Commit SHA
+* Automated Push to Amazon ECR
+* Repeatable Build Process
+
+Pipeline Flow:
 
 Code Push
 ↓
@@ -84,59 +118,172 @@ GitHub Actions
 ↓
 Docker Build
 ↓
+Image Tagging
+↓
 Amazon ECR
-↓
-EC2 Pulls Image
-↓
-Container Deployment
 
 ---
 
-## Tech Stack
+### Containerization
 
-* Python
-* FastAPI
-* Docker
-* GitHub Actions
-* AWS ECR
-* AWS EC2
+* Dockerized Python Application
+* Lightweight Container Image
+* Image Versioning Strategy
+* Immutable Artifact Approach
+
+Image Tags:
+
+* latest
+* git commit SHA
+
+---
+
+### AWS Services Used
+
+* Amazon EC2
+* Amazon ECR
 * AWS IAM
-* AWS ALB
-* AWS Auto Scaling
-* AWS CloudWatch
-* AWS SNS
-
----
-
-## Upcoming Enhancements
-
-### Terraform
-
-Infrastructure as Code implementation for:
-
-* ECR
-* IAM
-* EC2
-* ALB
-* ASG
+* Security Groups
 * CloudWatch
 * SNS
 
-### Kubernetes
+---
 
-Migration of application workload to Kubernetes using:
+### Security
+
+* IAM Roles instead of Access Keys
+* IAM Instance Profiles
+* Temporary AWS Credentials
+* Principle of Least Privilege
+* Security Group Based Access Control
+
+Authentication Design:
+
+EC2
+↓
+Instance Profile
+↓
+IAM Role
+↓
+AmazonEC2ContainerRegistryReadOnly
+
+This enables secure ECR access without storing AWS credentials on the server.
+
+---
+
+## Project Structure
+
+```text
+CloudDeployX
+│
+├── app/
+│   ├── __init__.py
+│   └── main.py
+│
+├── docs/
+│   ├── architecture.md
+│   ├── ci_cd.md
+│   └── deployment.md
+│
+├── screenshots/
+│
+├── terraform/
+│   ├── provider.tf
+│   ├── main.tf
+│   ├── iam.tf
+│   ├── variables.tf
+│   └── outputs.tf
+│
+├── Dockerfile
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+---
+
+## Key Learnings
+
+### Terraform
+
+* Infrastructure as Code
+* State Management
+* Resource Dependencies
+* Variables and Outputs
+* IAM Automation
+* EC2 Provisioning
+* ECR Provisioning
+
+### AWS
+
+* IAM Roles vs IAM Users
+* Instance Profiles
+* ECR Authentication
+* Security Groups
+* EC2 Lifecycle
+
+### DevOps
+
+* CI/CD Pipelines
+* Containerization
+* Artifact Management
+* Deployment Automation Concepts
+
+---
+
+## Future Enhancements
+
+### Deployment Automation
+
+* User Data Bootstrapping
+* Automated Container Startup
+* Automated Image Pull from ECR
+
+### Kubernetes
 
 * Pods
 * Deployments
 * Services
-* Ingress
 * ConfigMaps
 * Secrets
+* Ingress
+* Horizontal Scaling
+
+### Advanced AWS Infrastructure
+
+* Application Load Balancer (ALB)
+* Target Groups
+* Auto Scaling Groups
+* Launch Templates
+* High Availability Architecture
+
+### Observability
+
+* CloudWatch Dashboards
+* Centralized Logging
+* Metrics Collection
+* Alerting Improvements
+
+---
+
+## Screenshots
+
+The repository includes screenshots demonstrating:
+
+* GitHub Actions Pipeline Success
+* Amazon ECR Repository
+* CloudWatch Alarms
+* SNS Notifications
+* Target Groups
+* Application Load Balancer
+* Terraform Infrastructure Provisioning
 
 ---
 
 ## Author
 
-Priyanshu Gairola
+**Priyanshu Gairola**
 
-Infrastructure Engineer | DevOps & Cloud Engineer
+Infrastructure Engineer | Cloud & DevOps Engineer
+
+Focused on AWS, Terraform, Kubernetes, CI/CD, Infrastructure Automation, and Cloud-Native Technologies.
