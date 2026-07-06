@@ -21,4 +21,5 @@ spec:
     spec:
       containers:
       - name: clouddeployx-container
-        image: nginx
+        image: clouddeployx:v1
+        imagePullPolicy: IfNotPresent
