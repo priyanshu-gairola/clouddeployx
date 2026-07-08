@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: clouddeployx-config
+
+data:
+  APP_MODE: "production"
+  APP_NAME: "CloudDeployX"
+  LOG_LEVEL: "INFO"
