@@ -20,14 +20,29 @@ spec:
 
     spec:
       containers:
-      - name: clouddeployx-container
-        image: clouddeployx:v1
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 8000
-        
-        envFrom:
-          - configMapRef:
-              name: clouddeployx-config
-          - secretRef:
-              name: clouddeployx-secret
+        - name: clouddeployx-container
+          image: clouddeployx:v1
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8000
+
+          envFrom:
+            - configMapRef:
+                name: clouddeployx-config
+            - secretRef:
+                name: clouddeployx-secret
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
