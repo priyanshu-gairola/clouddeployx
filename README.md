@@ -111,6 +111,10 @@ Browser
 
 # ☁ AWS Deployment Flow
 
+<p align="center">
+  <img src="docs/images/aws_deployment.jpg" alt="CloudDeployX Architecture" width="100%">
+</p>
+
 ```
 Developer
 
@@ -146,6 +150,10 @@ CloudDeployX
 ---
 
 # ☸ Kubernetes Deployment Flow
+
+<p align="center">
+  <img src="docs/images/kubernutes_deployment.jpg" alt="CloudDeployX Architecture" width="100%">
+</p>
 
 ```
 Browser
